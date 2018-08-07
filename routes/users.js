@@ -4,6 +4,7 @@ router.prefix('/users')
 
 router.post('/login', function (ctx, next) {
   let time = new Date();
+  console.log(time)
   ctx.body = {
     name: "李飞",
     token: time
