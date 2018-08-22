@@ -1,8 +1,10 @@
 const router = require('koa-router')()
+var filesActive = require('../modules/files')
 
 router.prefix('/game')
 
 router.post('/list', async (ctx, next) => {
+  filesActive.findAllPicture()
     ctx.body={
       imageInfo:[
         {
