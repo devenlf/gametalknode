@@ -7,7 +7,7 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const cors = require('koa-cors')
 
-const index = require('./routes/index')
+const game = require('./routes/game')
 const users = require('./routes/users')
 
 // error handler
@@ -16,7 +16,7 @@ onerror(app)
 app.use(cors())
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
@@ -35,7 +35,7 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes(), index.allowedMethods())
+app.use(game.routes(), game.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 
 // error-handling
