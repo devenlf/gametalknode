@@ -2,29 +2,6 @@ const router = require('koa-router')()
 const createToken = require('../token/createToken')
 const User = require('../db/userInfo')
 
-function insert() {
- 
-  var user = new User({
-    nackname: "李飞",
-    username: "ds",                    //用户账号
-    userpwd: "4564646",                        //密码
-    email: "1824646@qq.com",                        //年龄
-    phone: "4646464346"                     //最近登录时间
-  });
-
-  user.save(function (err, res) {
-
-      if (err) {
-          console.log("Error:" + err);
-      }
-      else {
-          console.log("Res:" + res);
-      }
-
-  });
-}
-insert()
-
 router.prefix('/users')
 
 router.post('/login', function (ctx, next) {
@@ -53,15 +30,31 @@ router.post('/login', function (ctx, next) {
   }
 })
 
-router.post('/register',function(ctx,next){
+router.post('/register',async function(ctx,next){
   console.log(ctx.request.body)
-  ctx.body={
-    message:"你等一会"
-  }
+  await addUserInfo(ctx.request.body)
 })
 
 router.post('/bar', function (ctx, next) {
   
 })
+
+function addUserInfo(data) {
+  var user = new User({
+    nackname: data.nackname,
+    username: data.username,                    //用户账号
+    userpwd: data.password,                        //密码
+    email: data.Email,                        //年龄
+    phone: data.phone                     //最近登录时间
+  });
+  user.save(function (err, res) {
+      if (err) {
+          console.log("Error:" + err);
+      }
+      else {
+          console.log("Res:" + res);
+      }
+  });
+}
 
 module.exports = router
