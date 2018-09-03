@@ -1,5 +1,29 @@
 const router = require('koa-router')()
 const createToken = require('../token/createToken')
+const User = require('../db/userInfo')
+
+function insert() {
+ 
+  var user = new User({
+    nackname: "李飞",
+    username: "ds",                    //用户账号
+    userpwd: "4564646",                        //密码
+    email: "1824646@qq.com",                        //年龄
+    phone: "4646464346"                     //最近登录时间
+  });
+
+  user.save(function (err, res) {
+
+      if (err) {
+          console.log("Error:" + err);
+      }
+      else {
+          console.log("Res:" + res);
+      }
+
+  });
+}
+insert()
 
 router.prefix('/users')
 
