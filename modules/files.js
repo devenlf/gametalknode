@@ -8,7 +8,9 @@ module.exports={
       if(err){
         return console.log(err)
       }
+      console.log('-----------------')
       console.log(files)
+      console.log('-----------------')
     })
   }
 }

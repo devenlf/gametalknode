@@ -29,6 +29,13 @@ router.post('/login', function (ctx, next) {
   }
 })
 
+router.post('/register',function(ctx,next){
+  console.log(ctx.request.body)
+  ctx.body={
+    message:"你等一会"
+  }
+})
+
 router.post('/bar', function (ctx, next) {
   
 })
