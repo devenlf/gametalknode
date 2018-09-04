@@ -4,8 +4,11 @@ const checkToken = require('../token/checkToken')
 
 
 router.prefix('/game')
-router.post('/list', checkToken, async (ctx, next) => {
-  filesActive.findAllPicture()
+router.post('/list', async (ctx, next) => {
+  let token = ctx.request.header['token']
+  let user_Id =await checkToken(token).user_id;
+  return
+  // filesActive.findAllPicture()
   ctx.body = {
     imageInfo: [
       {

@@ -1,18 +1,16 @@
 const jwt = require('jsonwebtoken');
-module.exports = async (ctx, next) => {
-  const authorization = ctx.request.header['token'];
-  console.log(authorization)
-  jwt.verify(authorization, 'sinner77', function (err, decoded) {
+module.exports = (token) => {
+  let User_Id;
+  jwt.verify(token, 'sinner77', function (err, decoded) {
     if (err) {
       ctx.body = {
         state: 0,
         name: 'JsonWebTokenError',
         message: 'jwt malformed'
       }
-    } else {
-      if (decoded.user_id) {
-        next();
-      }
+      return
     }
+    User_Id = decoded
   })
+  return User_Id
 }

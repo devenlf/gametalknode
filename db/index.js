@@ -1,11 +1,9 @@
 const mongoose = require('mongoose'),
-    DB_URL = 'mongodb://localhost:27017/user';
-
+      DB_URL = 'mongodb://localhost:27017/user';
 /**
  * 连接
  */
 mongoose.connect(DB_URL);
-
 /**
   * 连接成功
   */

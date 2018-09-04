@@ -16,6 +16,7 @@
     "koa-convert": "^1.2.0",
     "koa-cors": "0.0.16",
     "koa-json": "^2.0.2",
+    "koa-jwt": "^3.5.0",
     "koa-logger": "^2.0.1",
     "koa-onerror": "^1.2.1",
     "koa-router": "^7.1.1",
@@ -24,7 +25,9 @@
     "mongodb": "^3.1.4",
     "mongoose": "^5.2.12",
     "monk": "^6.0.6",
-    "pug": "^2.0.0-rc.1"
+    "node-uuid": "^1.4.8",
+    "pug": "^2.0.0-rc.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "nodemon": "^1.8.1"

@@ -1,10 +1,11 @@
 const router = require('koa-router')()
 const createToken = require('../token/createToken')
 const User = require('../db/userInfo')
+const uuid = require('uuid');
 
 router.prefix('/users')
 
-router.post('/login', function (ctx, next) {
+router.post('/login', async function (ctx, next) {
   if (!ctx.request.body.username || !ctx.request.body.password) {
     ctx.body = {
       message: '用户名或者密码不得为空',
@@ -12,19 +13,28 @@ router.post('/login', function (ctx, next) {
     }
     return
   } else {
-    if (ctx.request.body.username === 'lifei' && ctx.request.body.password === '123456') {
-      let token = createToken('1')
+    let requestData = ctx.request.body
+    var wherestr = { 'username': requestData.username };
+    let userResult = await User.find(wherestr)
+    if (userResult.length === 0) {
       ctx.body = {
-        message: '登录成功',
-        name: "李飞",
-        userId: 1,
-        token: token,
+        message: '用户名不存在',
         state: 2
       }
-    } else {
-      ctx.body = {
-        message: '用户名密码不正确',
-        state: 1
+    } else if (userResult.length > 0) {
+      if(userResult[0].userpwd===requestData.password) {
+        console.log(requestData)
+        ctx.body={
+          message: '登陆成功',
+          name:userResult[0].nickname,
+          token: createToken(requestData.userId),
+          state: 0
+        }
+      }else{
+        ctx.body={
+          message: '密码错误',
+          state: 1
+        }
       }
     }
   }
@@ -37,14 +47,18 @@ router.post('/register', async function (ctx, next) {
   if (userResult.length > 0) {
     ctx.body = {
       scucces: false,
-      message: "用户名存在"
+      message: "用户名存在",
+      status: 1
     }
     return
   }
-  await addUserInfo(requestData)
+  let user_ID = await addUserInfo(requestData)
   ctx.body = {
+    status: 0,
     scucces: true,
-    message: "注册成功"
+    message: "注册成功",
+    token: createToken(user_ID),
+    nickname: requestData.nickname
   }
   return
 })
@@ -55,12 +69,15 @@ router.post('/bar', function (ctx, next) {
 
 //插入数据
 function addUserInfo(data) {
+  console.log(data)
+  let userId = uuid.v1()
   var user = new User({
-    nackname: data.nackname,
+    nickname: data.nickname,
     username: data.username,                    //用户账号
     userpwd: data.password,                        //密码
     email: data.Email,                        //年龄
-    phone: data.phone                     //最近登录时间
+    phone: data.phone,                    //最近登录时间
+    userId: userId
   });
   user.save(function (err, res) {
     if (err) {
@@ -70,6 +87,7 @@ function addUserInfo(data) {
       console.log("Res:" + res);
     }
   });
+  return userId
 }
 
 
