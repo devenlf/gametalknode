@@ -8,31 +8,6 @@ router.post('/list', async (ctx, next) => {
   let token = ctx.request.header['token']
   let user_Id =await checkToken(token).user_id;
   return
-  // filesActive.findAllPicture()
-  ctx.body = {
-    imageInfo: [
-      {
-        url: 'images/' + '1.jpg',
-        introduce: '这是测试图片'
-      },
-      {
-        url: 'images/' + '2.jpg',
-        introduce: '这是测试图片'
-      },
-      {
-        url: 'images/' + '3.jpg',
-        introduce: '这是测试图片'
-      },
-      {
-        url: 'images/' + '4.jpg',
-        introduce: '这是测试图片'
-      },
-      {
-        url: 'images/' + '5.jpg',
-        introduce: '这是测试图片'
-      },
-    ]
-  }
 
 })
 

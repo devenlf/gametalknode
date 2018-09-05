@@ -23,12 +23,24 @@ router.post('/login', async function (ctx, next) {
       }
     } else if (userResult.length > 0) {
       if(userResult[0].userpwd===requestData.password) {
-        console.log(requestData)
-        ctx.body={
-          message: '登陆成功',
-          name:userResult[0].nickname,
-          token: createToken(requestData.userId),
-          state: 0
+        switch(userResult[0].grade){
+          case 0:
+          ctx.body={
+            message: '登陆成功',
+            name:userResult[0].nickname,
+            token: createToken(requestData.userId),
+            state: 0,
+            level: 0,
+          }
+          break;
+          case 1:
+          ctx.body={
+            message: '管理员登陆成功',
+            name:userResult[0].nickname,
+            token: createToken(requestData.userId),
+            state: 0,
+            level: 1,
+          } 
         }
       }else{
         ctx.body={
@@ -77,7 +89,8 @@ function addUserInfo(data) {
     userpwd: data.password,                        //密码
     email: data.Email,                        //年龄
     phone: data.phone,                    //最近登录时间
-    userId: userId
+    userId: userId,
+    grade : 0
   });
   user.save(function (err, res) {
     if (err) {

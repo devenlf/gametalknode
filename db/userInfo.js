@@ -10,7 +10,8 @@ let UserSchema = new Schema({
   username: { type: String },                    //用户账号
   userpwd: { type: String },                        //密码
   email: { type: String },                        //年龄
-  phone: { type: Number }                       //最近登录时间
+  phone: { type: Number },                       //最近登录时间
+  grade: { type: Number }
 });
 
 module.exports = mongoose.model('User', UserSchema);

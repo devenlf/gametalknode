@@ -8,6 +8,7 @@ const logger = require('koa-logger')
 const cors = require('koa-cors')
 
 const game = require('./routes/game')
+const gameSet = require('./routes/gameSet')
 const users = require('./routes/users')
 
 // error handler
@@ -37,6 +38,7 @@ app.use(async (ctx, next) => {
 // routes
 app.use(game.routes(), game.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(gameSet.routes(), gameSet.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
