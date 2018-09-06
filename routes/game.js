@@ -1,21 +1,27 @@
 const router = require('koa-router')()
-const checkToken = require('../token/checkToken')
+const GameList = require('../db/admin')
 
+
+const findAllData = () => {
+  return new Promise((resolve, reject) => {
+    GameList.find({}, (err, doc) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(doc)
+    })
+  })
+}
 
 router.prefix('/game')
 router.post('/list', async function (ctx, next) {
-  let token = ctx.request.header['token']
-  try {
-    await checkToken(token);
-    ctx.body={
-      status:1
-    }
-  }catch(err){
-    ctx.body={
-      status:0
-    }
+  let page = ctx.request.body.page;
+  let row = ctx.request.body.row;
+  let gamelistData = await findAllData();
+  let currentData = gamelistData.slice(page * row, (page + 1) * row)
+  ctx.body = {
+    gameList: currentData
   }
-  return
 })
 
 

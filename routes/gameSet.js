@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const multer = require('koa-multer');//加载koa-multer模块
 const GameList = require('../db/admin')
 const uuid = require('uuid');
+const baseUrl="http://127.0.0.1:3000/uploads/"
 
 
 //文件上传
@@ -19,6 +20,10 @@ var storage = multer.diskStorage({
 })
 //加载配置
 var upload = multer({ storage: storage });
+
+//发布接口
+router.prefix('/admin')
+
 //路由
 router.post('/upload', upload.single('file'), async (ctx, next) => {
   ctx.body = {
@@ -26,15 +31,12 @@ router.post('/upload', upload.single('file'), async (ctx, next) => {
   }
 })
 
-
-//发布接口
-router.prefix('/admin')
 router.post('/gamefabu', async (ctx, next) => {
   let data = ctx.request.body
   await addUserInfo(data)
-  ctx.body={
-    status:1,
-    message:"上传成功"
+  ctx.body = {
+    status: 1,
+    message: "上传成功"
   }
 })
 
@@ -45,13 +47,15 @@ function addUserInfo(data) {
     gameName: data.name,
     gameDes: data.describe,                    //用户账号
     gameLink: data.link,                        //密码
-    logoLink: data.logoname,                        //年龄  
+    logoLink: baseUrl+data.logoname,                        //年龄  
     gameId: gameId,
+    tieziNum: 0,
+    liulanNum: 0
   });
-  user.save(function(err,res){
-    if(err){
+  user.save(function (err, res) {
+    if (err) {
       throw err
-    }else{
+    } else {
       console.log("成功")
     }
   })

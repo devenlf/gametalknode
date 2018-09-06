@@ -28,7 +28,7 @@ router.post('/login', async function (ctx, next) {
           ctx.body={
             message: '登陆成功',
             name:userResult[0].nickname,
-            token: createToken(requestData.userId),
+            token: createToken(userResult[0].userId),
             state: 0,
             level: 0,
           }
@@ -37,7 +37,7 @@ router.post('/login', async function (ctx, next) {
           ctx.body={
             message: '管理员登陆成功',
             name:userResult[0].nickname,
-            token: createToken(requestData.userId),
+            token: createToken(userResult[0].userId),
             state: 0,
             level: 1,
           } 

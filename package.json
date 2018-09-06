@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "debug": "^2.6.3",
+    "http-errors": "^1.7.0",
     "jsonwebtoken": "^8.3.0",
     "koa": "^2.2.0",
     "koa-bodyparser": "^3.2.0",

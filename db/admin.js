@@ -6,7 +6,15 @@ let gameList = new Schema({
   gameName: { type: String },                    //游戏名称
   gameDes: { type: String },
   gameLink: { type: String },
-  logoLink: { type: String }
+  logoLink: { type: String },
+  tieziNum: { type: Number },
+  liulanNum: { type: Number }
 });
+
+
+let gameReplies = new Schema({
+  gameId: { type: String },
+  gameName: { type: String }
+})
 
 module.exports = mongoose.model('GameList', gameList);
