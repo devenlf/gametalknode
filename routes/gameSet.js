@@ -40,7 +40,7 @@ router.post('/gamefabu', async (ctx, next) => {
   }
 })
 
-//插入数据
+//插入数据 游戏列表
 function addUserInfo(data) {
   let gameId = uuid.v1()
   var user = new GameList({
