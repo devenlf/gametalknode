@@ -12,9 +12,4 @@ let gameList = new Schema({
 });
 
 
-let gameReplies = new Schema({
-  gameId: { type: String },
-  gameName: { type: String }
-})
-
 module.exports = mongoose.model('GameList', gameList);
