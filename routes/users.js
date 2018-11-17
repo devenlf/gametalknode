@@ -19,7 +19,7 @@ router.post('/login', async function (ctx, next) {
     if (userResult.length === 0) {
       ctx.body = {
         message: '用户名不存在',
-        state: 2
+        state: 0
       }
     } else if (userResult.length > 0) {
       if(userResult[0].userpwd===requestData.password) {
@@ -29,7 +29,7 @@ router.post('/login', async function (ctx, next) {
             message: '登陆成功',
             name:userResult[0].nickname,
             token: createToken(userResult[0].userId),
-            state: 0,
+            state: 1,
             level: 0,
           }
           break;
@@ -38,14 +38,14 @@ router.post('/login', async function (ctx, next) {
             message: '管理员登陆成功',
             name:userResult[0].nickname,
             token: createToken(userResult[0].userId),
-            state: 0,
+            state: 1,
             level: 1,
           } 
         }
       }else{
         ctx.body={
           message: '密码错误',
-          state: 1
+          state: 0
         }
       }
     }
